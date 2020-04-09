@@ -1,0 +1,30 @@
+{% extends "base_bootstrap.html" %}
+
+{% block content %}
+  <h1>Shows List</h1>
+  {% if show_list %}
+  <ul>
+    {% for show in show_list %}
+      <li>
+          {{ show.nickname }} ({{ show.type }})
+          (<a href="{% url 'shows:show_update' show.id %}">Update</a> |
+          <a href="{% url 'shows:show_delete' show.id %}">Delete</a>) <br/>
+          {{ show.comments }} ({{ show.mileage }} miles)
+      </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+    <p>There are no shows in the library.</p>
+  {% endif %}
+  <p>
+    {% if make_count > 0 %}
+      <a href="{% url 'shows:show_create' %}">Add a show</a>
+    {% else %}
+      Please add a type before you add a show.
+    {% endif %}
+  </p>
+  <p>
+  <a href="{% url 'shows:type_list' %}">View types</a> ({{ make_count }}) |
+    <a href="{% url 'shows:type_create' %}">Add a type</a>
+  </p>
+{% endblock %}
